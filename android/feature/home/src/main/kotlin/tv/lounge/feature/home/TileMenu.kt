@@ -235,7 +235,7 @@ fun menuItemsFor(
             MenuItem(PinWords.PIN_APP, LoungeIcons.Pin, detail = PinWords.PIN_APP_DETAIL, onSelect = onPin)
         }
     }
-    if (tile.id.startsWith("chan:")) items += MenuItem("TV guide", LoungeIcons.Guide, onSelect = onGuide)
+    if (tile.id.startsWith("chan:")) items += MenuItem("Телегид", LoungeIcons.Guide, onSelect = onGuide)
     if (isStagePinned) {
         items += MenuItem(PinWords.UNPIN_STAGE, LoungeIcons.Pin, detail = PinWords.UNPIN_STAGE_DETAIL, onSelect = onUnpinStage)
     } else if (tile.action.isNotEmpty()) {

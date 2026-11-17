@@ -68,7 +68,7 @@ internal object NotificationWords {
     private val runs = Regex("\\s+")
 
     /** The chip's label: "1 notification", "3 notifications". */
-    fun count(n: Int): String = Words.counted(n, "notification", "notifications")
+    fun count(n: Int): String = "$n " + if (n % 10 == 1 && n % 100 != 11) "уведомление" else if (n % 10 in 2..4 && (n % 100 < 10 || n % 100 >= 20)) "уведомления" else "уведомлений"
 
     /** The chip as a screen reader says it, with how many are new. */
     fun spoken(n: Int, fresh: Int): String = if (fresh > 0) "${count(n)}, $fresh new" else count(n)

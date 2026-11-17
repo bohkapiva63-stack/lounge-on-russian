@@ -71,10 +71,10 @@ pub(crate) fn plugin_notice(plugin: &str) -> String {
 /// screen, which Your apps ends with, so there is no row of them all.
 pub(crate) const CORE_ROWS: [(&str, &str); 5] = [
     ("continue", "Продолжить просмотр"),
-    ("apps", "Your apps"),
-    ("games", "Games"),
-    ("live", "Live now"),
-    ("tvcontrols", "TV controls"),
+    ("apps", "Ваши приложения"),
+    ("games", "Игры"),
+    ("live", "В эфире"),
+    ("tvcontrols", "Управление ТВ"),
 ];
 
 /// The row order as it will be built: the user's order (or the default), with plugin and
@@ -162,7 +162,7 @@ pub(crate) fn row_infos(state: &State, config: &CoreConfig) -> Vec<RowInfo> {
                 (title, n, counted(n, "programme", "programmes", "Nothing yet"))
             } else {
                 let title = match id.as_str() {
-                    "tvcontrols" if !config.has_tv_controls => "Inputs".to_string(),
+                    "tvcontrols" if !config.has_tv_controls => "Входы".to_string(),
                     other => CORE_ROWS.iter().find(|(i, _)| *i == other).map(|(_, t)| t.to_string()).unwrap_or_else(|| other.to_string()),
                 };
                 let (n, detail) = match id.as_str() {
@@ -390,7 +390,7 @@ fn build_row(state: &State, index: &BuildIndex, row_id: &str, now: i64, config: 
             }
             return Some(Row {
                 id: row_id.to_string(),
-                title: "Live now".to_string(),
+                title: "В эфире".to_string(),
                 kind: TileKind::Landscape,
                 size: RowSize::M,
                 badge: Some(Badge::Live),
@@ -411,7 +411,7 @@ fn build_row(state: &State, index: &BuildIndex, row_id: &str, now: i64, config: 
             }
             return Some(Row {
                 id: row_id.to_string(),
-                title: if config.has_tv_controls { "TV controls".to_string() } else { "Inputs".to_string() },
+                title: if config.has_tv_controls { "Управление ТВ".to_string() } else { "Входы".to_string() },
                 kind: TileKind::Compact,
                 size: RowSize::M,
                 badge: None,
@@ -654,7 +654,7 @@ fn tv_controls_tile(config: &CoreConfig) -> Tile {
     Tile {
         id: "device:tv".to_string(),
         kind: TileKind::Compact,
-        title: "TV controls".to_string(),
+        title: "Управление ТВ".to_string(),
         subtitle: Some(config.device_name.clone()),
         artwork_path: None,
         icon_path: None,
@@ -908,7 +908,7 @@ fn build_stage(state: &State, index: &BuildIndex, now: i64, hour_local: u32, con
             id: "device:tv".to_string(),
             kind: crate::SpotlightKind::Device,
             category: "Your TV".to_string(),
-            title: "TV controls".to_string(),
+            title: "Управление ТВ".to_string(),
             lines: vec!["Turn the TV on, switch inputs and change the sound".to_string()],
             progress: None,
             artwork_path: None,
@@ -937,24 +937,24 @@ fn spotlight_for(graph: &Graph, index: &BuildIndex, it: &Item, now: i64, hour_lo
     let airing = index.airing(it);
     let (category, primary_label) = match it.kind {
         ItemKind::Resume | ItemKind::MediaSession => ("Продолжить просмотр", "Продолжить"),
-        ItemKind::Channel => ("Live now", "Watch"),
-        ItemKind::Game => ("Games", "Play"),
-        ItemKind::Wallpaper => ("Pictures", "Open"),
-        ItemKind::Input | ItemKind::Device => ("Inputs", "Switch"),
+        ItemKind::Channel => ("В эфире", "Смотреть"),
+        ItemKind::Game => ("Игры", "Играть"),
+        ItemKind::Wallpaper => ("Галерея", "Открыть"),
+        ItemKind::Input | ItemKind::Device => ("Входы", "Переключить"),
         ItemKind::Program => {
             if it.flags.watch_next {
-                if it.flags.is_new { ("New for you", "Watch") } else { ("Up next", "Watch") }
+                if it.flags.is_new { ("Новинки для вас", "Смотреть") } else { ("Следующее к просмотру", "Смотреть") }
             } else {
-                ("Tonight", "Watch")
+                ("Сегодня вечером", "Смотреть")
             }
         }
         ItemKind::App => {
             if it.flags.is_game {
-                ("Games", "Play")
+                ("Игры", "Играть")
             } else if it.last_used_ms.is_some() {
-                ("Jump back in", "Open")
+                ("Вернуться", "Открыть")
             } else {
-                ("Your apps", "Open")
+                ("Ваши приложения", "Открыть")
             }
         }
     };

@@ -428,7 +428,7 @@ fun QuickSettingsSheet(
         val at = steps.indexOf(recentApps).let { if (it < 0) 1 else it }
         SheetRow(
             icon = LoungeIcons.Apps,
-            title = "Your apps",
+            title = "Ваши приложения",
             subtitle = "Закрепленные приложения, затем недавние",
             value = if (recentApps == 0) "Только закрепленные" else "$recentApps недавних",
             onClick = { sounds0?.tick(); onSetRecentApps(steps[(at + 1) % steps.size]) },
@@ -475,7 +475,7 @@ fun QuickSettingsSheet(
         SheetRow(
             icon = LoungeIcons.Theme,
             title = "Тема оформления",
-            value = theme.title,
+            value = theme.title.replace("Absinthe", "Полынь").replace("Blackout", "Черный").replace("High contrast", "Контрастная"),
             onClick = { sounds0?.tick(); onSetTheme(theme.step(1)) },
             onCycle = { by -> sounds0?.tick(); onSetTheme(theme.step(by)) },
         )
@@ -484,7 +484,7 @@ fun QuickSettingsSheet(
         SheetRow(
             icon = SettingsGlyphs.Scene,
             title = "Фон",
-            value = scenes[sceneAt].second,
+            value = scenes[sceneAt].second.replace("Still", "Статичный"),
             subtitle = if (!liveBackdrops && sceneAt > 0) "Still while Lite mode or Reduce motion is on" else scenes[sceneAt].third,
             onClick = { sounds0?.tick(); onSetBackdrop(scenes[(sceneAt + 1).mod(scenes.size)].first) },
             onCycle = { by -> sounds0?.tick(); onSetBackdrop(scenes[(sceneAt + by).mod(scenes.size)].first) },

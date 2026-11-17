@@ -133,8 +133,8 @@ fun TopBar(
         // The buttons keep to the right. On a full bar the playing title is what gives way.
         Row(Modifier.weight(1f).padding(start = 28.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(28.dp, Alignment.End)) {
             TopBarButton(LoungeIcons.Search, "Поиск", onSearch, focus, focus.search)
-            if (showGuide) TopBarButton(LoungeIcons.Guide, "TV guide", onGuide, focus, focus.guide)
-            if (showTvControls) TopBarButton(LoungeIcons.Tv, "TV controls", onTvControls, focus, focus.tvControls)
+            if (showGuide) TopBarButton(LoungeIcons.Guide, "Телегид", onGuide, focus, focus.guide)
+            if (showTvControls) TopBarButton(LoungeIcons.Tv, "Управление ТВ", onTvControls, focus, focus.tvControls)
             if (nowPlaying != null) NowPlayingChip(nowPlaying, onNowPlaying, focus, Modifier.weight(1f, fill = false))
             if (notices.list.isNotEmpty()) {
                 TopBarButton(

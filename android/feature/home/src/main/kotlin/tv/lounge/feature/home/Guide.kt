@@ -127,7 +127,7 @@ fun GuideSheet(loadGuide: (Long) -> Guide, visibleState: MutableTransitionState<
                     .fillMaxWidth()
                     .height(680.dp)
                     .background(colors.curtain)
-                    .semantics { paneTitle = "TV guide" }
+                    .semantics { paneTitle = "Телегид" }
                     .onPreviewKeyEvent { e -> if (e.isBack() && e.type == KeyEventType.KeyUp) { onDismiss(); true } else false }
                     .focusProperties { canFocus = !leaving }
                     .trapFocus(leaving)
@@ -148,7 +148,7 @@ fun GuideSheet(loadGuide: (Long) -> Guide, visibleState: MutableTransitionState<
 }
 
 /**
- * "TV guide" with how many channels and the time, or what it is waiting for. Until there is a
+ * "Телегид" with how many channels and the time, or what it is waiting for. Until there is a
  * programme to land on, the heading itself holds focus, so Back still closes the sheet.
  */
 @Composable
@@ -168,7 +168,7 @@ private fun GuideHeader(g: Guide?, focus: FocusRequester, holdsFocus: Boolean) {
             .padding(start = Dimens.safeX, end = Dimens.safeX, top = 24.dp, bottom = 12.dp),
     ) {
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.Bottom, horizontalArrangement = Arrangement.SpaceBetween) {
-            Text("TV guide", style = LoungeTheme.typography.headline, color = colors.limelight, modifier = Modifier.semantics { heading() })
+            Text("Телегид", style = LoungeTheme.typography.headline, color = colors.limelight, modifier = Modifier.semantics { heading() })
             Text(status, style = LoungeTheme.typography.meta, color = colors.dust, modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite })
         }
         if (g != null && g.channels.isEmpty()) {
