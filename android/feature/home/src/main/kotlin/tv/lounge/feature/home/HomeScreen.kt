@@ -1064,7 +1064,7 @@ private fun SheetContent(
                 value = withContext(Dispatchers.IO) {
                     // Only rows the person hid count.
                     val hidden = core.homeRows().count { !it.shown && it.chosen }
-                    if (hidden == 0) "All shown" else if (hidden == 1) "1 hidden" else "$hidden hidden"
+                    if (hidden == 0) "Все отображаются" else if (hidden == 1) "1 hidden" else "$hidden hidden"
                 }
             }
             QuickSettingsSheet(

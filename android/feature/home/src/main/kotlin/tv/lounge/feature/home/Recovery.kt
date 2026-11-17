@@ -109,7 +109,7 @@ fun RecoveryScreen(
                     )
                 }
                 LoungeButton(
-                    label = "Settings",
+                    label = "Настройки",
                     onClick = { stuck = if (onOpenSettings()) null else "This TV's settings didn't open. Open them from the TV's own home screen instead." },
                     kind = ButtonKind.Secondary,
                 )

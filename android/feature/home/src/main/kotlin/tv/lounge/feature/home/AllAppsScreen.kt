@@ -245,7 +245,7 @@ fun AllAppsScreen(
                                                         }
                                                     }
                                                     .focusable()
-                                                    .semantics { contentDescription = if (c == '#') "Apps starting with a number or symbol" else "Apps starting with $c" }
+                                                    .semantics { contentDescription = if (c == '#') "Приложения на цифру или символ" else "Apps starting with $c" }
                                             } else {
                                                 Modifier
                                             },
@@ -274,7 +274,7 @@ fun AllAppsScreen(
                     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                         Icon(LoungeIcons.Apps, contentDescription = null, tint = colors.dust, modifier = Modifier.size(32.dp))
                         Text(
-                            if (query.isEmpty()) "Apps appear here once they are installed." else "No app is called “$query”. Back clears the search.",
+                            if (query.isEmpty()) "Приложения появятся здесь после установки." else "No app is called “$query”. Back clears the search.",
                             style = LoungeTheme.typography.meta,
                             color = colors.dust,
                         )
@@ -356,7 +356,7 @@ fun AllAppsScreen(
                                 color = colors.dust,
                             )
                             Text(
-                                if (alphabetical) "Hold OK on an app to pin it to Your apps. Up to search or sort, Left for the alphabet." else "Hold OK on an app to pin it to Your apps. Up to search or sort.",
+                                if (alphabetical) "Удерживайте OK для закрепления. Вверх — поиск/сортировка, Влево — алфавит." else "Удерживайте OK для закрепления в Ваших приложениях. Вверх — поиск и сортировка.",
                                 style = LoungeTheme.typography.caption,
                                 color = colors.dust,
                             )
@@ -395,7 +395,7 @@ private fun SortPill(sort: String, onSetSort: (String) -> Unit) {
             .background(if (focused) colors.curtainEdge else colors.curtain)
             .focusRim(colors, { if (focused) 1f else 0f }, 24.dp)
             .onFocusChanged { focused = it.isFocused }
-            .tilePress(next, next, clickLabel = "Change the order")
+            .tilePress(next, next, clickLabel = "Изменить порядок")
             .focusable()
             .semantics { role = Role.Button; contentDescription = "Sorted ${sortLabel(sort)}. OK changes the order" }
             .height(48.dp)
@@ -463,8 +463,8 @@ private fun sortLabel(sort: String) = when (sort) {
 }
 
 private fun sortLine(sort: String) = when (sort) {
-    Prefs.SORT_OPENED -> "most recently opened first"
-    Prefs.SORT_INSTALLED -> "newest first"
+    Prefs.SORT_OPENED -> "сначала недавно открытые"
+    Prefs.SORT_INSTALLED -> "сначала новые"
     else -> "От А до Я"
 }
 

@@ -176,13 +176,13 @@ fun OnboardingScreen(
                             LoungeButton(
                                 label = when (step) {
                                     STEPS - 1 -> "Start"
-                                    else -> "Next"
+                                    else -> "Далее"
                                 },
                                 onClick = { next() },
                                 focusRequester = primaryFocus,
                             )
                             if (step in 1 until STEPS - 1) {
-                                LoungeButton(label = "Skip", onClick = { next() }, kind = ButtonKind.Secondary)
+                                LoungeButton(label = "Пропустить", onClick = { next() }, kind = ButtonKind.Secondary)
                             }
                         }
                         Spacer(Modifier.height(28.dp))
@@ -250,7 +250,7 @@ private fun ChoiceDot(selected: Boolean) {
 @Composable
 private fun StepLook(prefs: Prefs, uiPrefs: Prefs.UiPrefs, choiceFocus: FocusRequester, onPreview: (Prefs.Theme) -> Unit) {
     val scope = rememberCoroutineScope()
-    Heading("Welcome to Lounge", "Your TV, laid out around what you actually watch. First, how should it look? You can change this any time.")
+    Heading("Добро пожаловать в Lounge", "Your TV, laid out around what you actually watch. First, how should it look? You can change this any time.")
     // The rooms two to a row, so the grid and the live preview share the screen.
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Prefs.Theme.entries.chunked(2).forEach { pair ->
@@ -386,7 +386,7 @@ private fun StepPower(power: PowerSetup, context: Context, choiceFocus: FocusReq
         SheetRow(
             icon = LoungeIcons.Power,
             title = when (status) {
-                is PowerStatus.Ready -> "Connected"
+                is PowerStatus.Ready -> "Подключено"
                 PowerStatus.WaitingForApproval -> "Waiting for you to allow it…"
                 is PowerStatus.Unavailable -> "Turn on USB debugging first"
                 else -> "Connect Power Setup"
@@ -420,7 +420,7 @@ private fun StepPower(power: PowerSetup, context: Context, choiceFocus: FocusReq
             subtitle = homeFailed,
             subtitleLines = WHOLE,
             value = when {
-                isHome -> "Done"
+                isHome -> "Готово"
                 working -> "Working…"
                 homeFailed != null -> "Didn't work"
                 ready -> "Do it"
@@ -483,7 +483,7 @@ private fun StepPhone(core: CoreClient, prefs: Prefs, uiPrefs: Prefs.UiPrefs, ch
     SheetRow(
         icon = LoungeIcons.Phone,
         title = "Phone companion",
-        value = if (on) "On" else "Off",
+        value = if (on) "Вкл" else "Выкл",
         accent = if (on) colors.signal else colors.dust,
         onClick = {
             scope.launch {

@@ -197,7 +197,7 @@ fun TileView(
                 onFocused(it.isFocused, bounds())
             }
             // Held on a tile with no menu, OK is a press like any other.
-            .tilePress(onClick, { if (menu) onLongPress(bounds()) else onClick() }, clickLabel = "Open", longPressLabel = if (menu) "Options" else null, opens = tile.action.isNotEmpty())
+            .tilePress(onClick, { if (menu) onLongPress(bounds()) else onClick() }, clickLabel = "Открыть", longPressLabel = if (menu) "Options" else null, opens = tile.action.isNotEmpty())
             .focusable()
             .semantics { contentDescription = spoken }
             // Two layers on purpose: the glow redraws every frame of a focus change, and inside the

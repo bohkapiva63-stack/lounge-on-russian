@@ -54,7 +54,7 @@ sealed interface UpdateState {
         override val label: String get() = "UpToDate"
     }
     data class Available(override val release: Release) : UpdateState {
-        override val label: String get() = "Available"
+        override val label: String get() = "Доступно"
     }
     data class Downloading(override val release: Release, val progress: Float) : UpdateState {
         override val label: String get() = "Downloading"

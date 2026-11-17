@@ -134,7 +134,7 @@ fun PowerSetupSheet(power: PowerSetup, onHomeRoleChanged: () -> Unit, say: (Stri
 
     val ready = status is PowerStatus.Ready
     SheetHeading(
-        "Power Setup",
+        "Расширенные системные права",
         when (val s = status) {
             is PowerStatus.Ready -> if (s.backend == "shizuku") "Connected through Shizuku." else "Connected to this TV's USB debugging."
             PowerStatus.WaitingForApproval -> "Allow it on the prompt the TV is showing. Tick “Always allow” so you only do this once."
@@ -150,7 +150,7 @@ fun PowerSetupSheet(power: PowerSetup, onHomeRoleChanged: () -> Unit, say: (Stri
         SheetRow(
             icon = if (unavailable) LoungeIcons.Settings else LoungeIcons.Power,
             title = when (s) {
-                is PowerStatus.Ready -> "Connected"
+                is PowerStatus.Ready -> "Подключено"
                 PowerStatus.WaitingForApproval -> "Waiting for you to allow it…"
                 is PowerStatus.Unavailable -> "Open Developer options"
                 else -> "Connect"
@@ -238,7 +238,7 @@ private fun ActionRow(action: PowerAction, state: RunState?, enabled: Boolean, o
             title = action.title,
             value = when (state) {
                 RunState.Running -> "Running…"
-                is RunState.Done -> "Done"
+                is RunState.Done -> "Готово"
                 is RunState.Failed -> "Failed"
                 is RunState.DidntTake -> "Didn't take"
                 null -> if (enabled) "Run" else "Connect first"
@@ -342,7 +342,7 @@ fun TvControlsSheet(power: PowerSetup, deviceName: String, onKey: (String) -> Un
             title = if (ready) "Wake the TV and switch to me" else "Set up TV power and input",
             subtitle = if (ready) reasonFor(power.oneTouchPlay) else null,
             subtitleLines = WHOLE,
-            value = if (ready) valueFor(power.oneTouchPlay, tv?.let { if (it.isOn) "TV is on" else "TV is off" }) else if (status is PowerStatus.Unavailable) "Needs USB debugging" else "Power Setup",
+            value = if (ready) valueFor(power.oneTouchPlay, tv?.let { if (it.isOn) "TV is on" else "TV is off" }) else if (status is PowerStatus.Unavailable) "Needs USB debugging" else "Расширенные системные права",
             accent = if (ready) accentFor(power.oneTouchPlay) else colors.houselight,
             onClick = { if (ready) run(power.oneTouchPlay) else onPowerSetup() },
             focusRequester = firstFocus,
@@ -360,7 +360,7 @@ fun TvControlsSheet(power: PowerSetup, deviceName: String, onKey: (String) -> Un
                 Text("Switch the TV to", style = LoungeTheme.typography.meta, color = colors.dust)
                 others.forEach { d ->
                     val action = power.selectDevice(d)
-                    SheetRow(icon = LoungeIcons.Hdmi, title = d.name, subtitle = reasonFor(action), subtitleLines = WHOLE, value = valueFor(action, if (d.isOn) "On" else "Standby"), accent = accentFor(action), onClick = { run(action) })
+                    SheetRow(icon = LoungeIcons.Hdmi, title = d.name, subtitle = reasonFor(action), subtitleLines = WHOLE, value = valueFor(action, if (d.isOn) "Вкл" else "Standby"), accent = accentFor(action), onClick = { run(action) })
                 }
             }
         }

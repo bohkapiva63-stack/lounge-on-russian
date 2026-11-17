@@ -156,8 +156,8 @@ private fun GuideHeader(g: Guide?, focus: FocusRequester, holdsFocus: Boolean) {
     val colors = LoungeTheme.colors
     val is24Hour = is24HourClock()
     val status = when {
-        g == null -> "Reading the guide"
-        g.channels.isEmpty() -> "No channels yet"
+        g == null -> "Загрузка телегида..."
+        g.channels.isEmpty() -> "Каналов пока нет"
         else -> "${Words.counted(g.channels.size, "channel", "channels")}, ${Words.clock(g.nowMs, is24Hour)}"
     }
     Column(
@@ -173,7 +173,7 @@ private fun GuideHeader(g: Guide?, focus: FocusRequester, holdsFocus: Boolean) {
         }
         if (g != null && g.channels.isEmpty()) {
             Spacer(Modifier.height(16.dp))
-            Text("Channels show here once a TV app or a plugin lists what is on.", style = LoungeTheme.typography.body, color = colors.dust)
+            Text("Каналы появятся здесь, как только приложение или плагин загрузит программу.", style = LoungeTheme.typography.body, color = colors.dust)
         }
     }
 }
@@ -244,7 +244,7 @@ private fun ChannelRow(ch: GuideChannel, g: Guide, gridWidth: Dp, rowHeight: Dp,
             val visible = ch.programmes.filter { it.endMs > g.fromMs && it.startMs < g.fromMs + WINDOW_MS }
             if (visible.isEmpty()) {
                 ProgrammeCell(
-                    GuideProgramme(id = "${ch.id}:none", title = "No programme information", subtitle = null, startMs = g.fromMs, endMs = g.fromMs + WINDOW_MS, isNow = false),
+                    GuideProgramme(id = "${ch.id}:none", title = "Нет информации о передаче", subtitle = null, startMs = g.fromMs, endMs = g.fromMs + WINDOW_MS, isNow = false),
                     ch, g, gridWidth, firstFocus,
                 ) { onTune(ch.action) }
             } else {

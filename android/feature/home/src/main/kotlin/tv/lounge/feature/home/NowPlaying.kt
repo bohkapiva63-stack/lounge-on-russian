@@ -151,9 +151,9 @@ fun NowPlayingCard(
                             primary = true,
                             focusRequester = firstFocus,
                         ) { onCommand("play-pause") }
-                        TransportButton(LoungeIcons.SkipNext, "Next", np.canSkipNext, light) { onCommand("next") }
+                        TransportButton(LoungeIcons.SkipNext, "Далее", np.canSkipNext, light) { onCommand("next") }
                         Spacer(Modifier.weight(1f))
-                        LoungeButton("Open", onClick = onOpenApp, kind = ButtonKind.Secondary)
+                        LoungeButton("Открыть", onClick = onOpenApp, kind = ButtonKind.Secondary)
                     }
                     if (progress != null) {
                         Spacer(Modifier.height(14.dp))

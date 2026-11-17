@@ -376,11 +376,11 @@ internal fun screensaverName(power: PowerSetup, context: android.content.Context
     val enabled = runCatching { android.provider.Settings.Secure.getInt(context.contentResolver, "screensaver_enabled", 1) }.getOrDefault(1)
     val current = power.currentScreensaver
     return when {
-        enabled == 0 -> "Off"
-        current == null -> "The TV's own"
+        enabled == 0 -> "Выкл"
+        current == null -> "Системная заставка ТВ"
         current.contains(context.packageName) -> "Lounge"
         // A label that is only a package name says nothing to a person.
-        else -> power.labelFor(current).takeUnless { it.contains('.') && ' ' !in it } ?: "The TV's own"
+        else -> power.labelFor(current).takeUnless { it.contains('.') && ' ' !in it } ?: "Системная заставка ТВ"
     }
 }
 
@@ -396,7 +396,7 @@ fun AmbientSheet(power: PowerSetup, prefs: Prefs, core: CoreClient, onPowerSetup
     val scope = rememberCoroutineScope()
     val styles by produceState(emptyList<ShaderStyle>()) { value = withContext(Dispatchers.IO) { ShaderStyles.all(context, core) } }
     val chosen by prefs.ambientStyle.collectAsState(initial = ShaderStyles.PICTURES)
-    val choices = listOf(Triple(ShaderStyles.PICTURES, "Pictures", "Artwork from your home screen")) +
+    val choices = listOf(Triple(ShaderStyles.PICTURES, "Обложки", "Обложки с вашего главного экрана")) +
         styles.map { Triple(it.id, it.name, it.description ?: it.origin) }
     val at = choices.indexOfFirst { it.first == chosen }.coerceAtLeast(0)
     fun step(by: Int) {
@@ -463,14 +463,14 @@ fun AmbientSheet(power: PowerSetup, prefs: Prefs, core: CoreClient, onPowerSetup
     SheetHeading(
         "Screensaver",
         if (ours) "Your artwork or a slow abstract scene, with a clock; it drifts and dims to be kind to OLED panels."
-        else "Show your artwork or a slow abstract scene with a clock when the TV idles.",
+        else "Показ обложек или плавной анимации с часами во время простоя ТВ.",
     )
     Column(verticalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(8.dp)) {
         SheetRow(
             icon = LoungeIcons.Frame,
             title = "Screensaver",
             subtitle = when {
-                busy -> "Switching…"
+                busy -> "Переключение…"
                 ours && ready -> "OK puts back the one before"
                 ours -> "Power Setup can put back the one before"
                 ready -> "OK makes Lounge's the screensaver"
@@ -491,7 +491,7 @@ fun AmbientSheet(power: PowerSetup, prefs: Prefs, core: CoreClient, onPowerSetup
             onClick = { step(1) },
             onCycle = { step(it) },
         )
-        SheetRow(icon = LoungeIcons.Play, title = "Preview it now", subtitle = "Any key brings you back", onClick = onPreview)
+        SheetRow(icon = LoungeIcons.Play, title = "Предпросмотр", subtitle = "Любая клавиша для возврата", onClick = onPreview)
         if (error != null) Text(error!!, style = LoungeTheme.typography.caption, color = colors.ember)
     }
     SheetFootnote(

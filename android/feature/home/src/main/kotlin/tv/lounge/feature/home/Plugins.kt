@@ -140,10 +140,10 @@ private fun statusWord(p: PluginInfo): String = when {
     // A plugin waiting on the person is not a problem: a sign-in when there is a page or a code.
     p.enabled && p.ask != null -> if (p.ask?.link != null || p.ask?.code != null) "Sign in" else "Needs setup"
     p.lastError != null && p.enabled -> "Problem"
-    p.enabled -> "On"
+    p.enabled -> "Вкл"
     p.updateAsksToReach.isNotEmpty() -> "Turned off by its update"
     !p.configured -> "Needs setup"
-    else -> "Off"
+    else -> "Выкл"
 }
 
 @Composable
@@ -241,7 +241,7 @@ fun PluginDetailSheet(core: CoreClient, pluginId: String, onRemoved: () -> Unit,
             SheetRow(
                 icon = LoungeIcons.Power,
                 title = p.name,
-                value = if (p.enabled) "On" else "Off",
+                value = if (p.enabled) "Вкл" else "Выкл",
                 accent = if (p.enabled) colors.signal else colors.dust,
                 onClick = { switch(!p.enabled) },
                 focusRequester = if (startAtField) null else firstFocus,
@@ -249,7 +249,7 @@ fun PluginDetailSheet(core: CoreClient, pluginId: String, onRemoved: () -> Unit,
         }
         if (p.settings.isNotEmpty()) {
             Spacer(Modifier.height(8.dp))
-            Text("Settings", style = LoungeTheme.typography.meta, color = colors.dust)
+            Text("Настройки", style = LoungeTheme.typography.meta, color = colors.dust)
             p.settings.forEach { s ->
                 SettingField(
                     setting = s,
@@ -439,7 +439,7 @@ private fun SettingField(setting: PluginSettingInfo, focusRequester: FocusReques
             title = setting.label,
             subtitle = setting.help?.let { shortHelp(it) },
             subtitleLines = WHOLE,
-            value = if (on) "On" else "Off",
+            value = if (on) "Вкл" else "Выкл",
             accent = if (on) colors.signal else colors.dust,
             onClick = { onToggle(!on) },
             focusRequester = focusRequester,

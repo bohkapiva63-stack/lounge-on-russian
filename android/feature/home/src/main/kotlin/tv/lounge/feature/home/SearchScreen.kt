@@ -166,7 +166,7 @@ fun SearchScreen(
             Modifier
                 .fillMaxSize()
                 .background(colors.velvet)
-                .semantics { paneTitle = "Search" }
+                .semantics { paneTitle = "Поиск" }
                 .onPreviewKeyEvent { e ->
                     if (e.isBack() && e.type == KeyEventType.KeyUp && !fieldFocused) { onClose(); true } else false
                 }

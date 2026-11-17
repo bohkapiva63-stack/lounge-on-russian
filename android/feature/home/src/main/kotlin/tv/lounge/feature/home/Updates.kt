@@ -35,7 +35,7 @@ fun updateStatusWord(state: UpdateState, auto: Boolean): String = when (state) {
     is UpdateState.Installing -> "Installing…"
     is UpdateState.Failed -> "Problem"
     is UpdateState.UpToDate -> "У вас новейшая версия"
-    is UpdateState.Idle -> if (auto) "On" else "Manual"
+    is UpdateState.Idle -> if (auto) "Вкл" else "Manual"
 }
 
 private fun ago(ms: Long): String = if (ms <= 0) "never" else Words.ago(System.currentTimeMillis() - ms)
@@ -78,7 +78,7 @@ fun UpdatesSheet(updates: UpdateManager, firstFocus: FocusRequester) {
         SheetRow(
             icon = SettingsGlyphs.Clock,
             title = "Check twice a day",
-            value = if (auto) "On" else "Off",
+            value = if (auto) "Вкл" else "Выкл",
             accent = if (auto) colors.signal else colors.dust,
             onClick = { updates.setAutoCheck(!auto) },
         )
@@ -91,7 +91,7 @@ fun UpdatesSheet(updates: UpdateManager, firstFocus: FocusRequester) {
                 subtitle = if (s.path == InstallPath.NeedsPermission) INSTALL_HINT else null,
                 accent = colors.houselight,
                 value = when (s.path) {
-                    InstallPath.NeedsPermission -> "Open"
+                    InstallPath.NeedsPermission -> "Открыть"
                     InstallPath.Confirm -> "Confirm"
                     else -> "Now"
                 },

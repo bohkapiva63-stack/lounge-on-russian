@@ -216,7 +216,7 @@ fun menuItemsFor(
         if (isApp) {
             items += MenuItem("App info", LoungeIcons.Info, onSelect = onAppInfo)
             items += MenuItem("Open in Play Store", LoungeIcons.Play, onSelect = onPlay)
-            items += MenuItem("Uninstall", LoungeIcons.Trash, destructive = true, onSelect = onUninstall)
+            items += MenuItem("Удалить", LoungeIcons.Trash, destructive = true, onSelect = onUninstall)
         }
         return items
     }
@@ -251,7 +251,7 @@ fun menuItemsFor(
     if (isApp) {
         items += MenuItem("App info", LoungeIcons.Info, onSelect = onAppInfo)
         items += MenuItem("Open in Play Store", LoungeIcons.Play, onSelect = onPlay)
-        items += MenuItem("Uninstall", LoungeIcons.Trash, destructive = true, onSelect = onUninstall)
+        items += MenuItem("Удалить", LoungeIcons.Trash, destructive = true, onSelect = onUninstall)
     }
     return items
 }

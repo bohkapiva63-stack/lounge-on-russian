@@ -371,7 +371,7 @@ fun QuickSettingsSheet(
     say: (String) -> Unit,
     onChannels: () -> Unit,
     onRows: () -> Unit,
-    /** "All shown" or "2 hidden": what the row editor would say first. */
+    /** "Все отображаются" or "2 hidden": what the row editor would say first. */
     rowsSummary: String,
     /** How many recently opened apps follow the pins in Your apps. */
     recentApps: Int,
@@ -438,7 +438,7 @@ fun QuickSettingsSheet(
             icon = SettingsGlyphs.PhoneApps,
             title = "Телефонные приложения",
             subtitle = "Приложения для телефонов (могут плохо управляться пультом)",
-            value = if (showMobileApps) "On" else "Off",
+            value = if (showMobileApps) "Вкл" else "Выкл",
             accent = if (showMobileApps) colors.signal else colors.dust,
             onClick = { sounds0?.tick(); onSetShowMobileApps(!showMobileApps) },
             onCycle = { sounds0?.tick(); onSetShowMobileApps(!showMobileApps) },
@@ -464,7 +464,7 @@ fun QuickSettingsSheet(
             icon = LoungeIcons.Bell,
             title = "Уведомления",
             subtitle = "Сообщения и уведомления от приложений",
-            value = if (!notificationsAllowed) "Не разрешено" else if (notificationsOn) "On" else "Off",
+            value = if (!notificationsAllowed) "Не разрешено" else if (notificationsOn) "Вкл" else "Выкл",
             accent = if (notificationsAllowed && notificationsOn) colors.signal else colors.dust,
             onClick = onNotifications,
             focusRequester = focusFor(Overlay.NotificationSettings),
@@ -479,7 +479,7 @@ fun QuickSettingsSheet(
             onClick = { sounds0?.tick(); onSetTheme(theme.step(1)) },
             onCycle = { by -> sounds0?.tick(); onSetTheme(theme.step(by)) },
         )
-        val scenes = listOf(Triple(Prefs.STILL_BACKDROP, "Still", "The room's own light")) + backdrops.map { Triple(it.id, it.name, it.description ?: it.origin) }
+        val scenes = listOf(Triple(Prefs.STILL_BACKDROP, "Still", "Естественный свет")) + backdrops.map { Triple(it.id, it.name, it.description ?: it.origin) }
         val sceneAt = scenes.indexOfFirst { it.first == backdrop }.coerceAtLeast(0)
         SheetRow(
             icon = SettingsGlyphs.Scene,
@@ -500,7 +500,7 @@ fun QuickSettingsSheet(
         SheetRow(
             icon = LoungeIcons.Volume,
             title = "Звуки",
-            value = if (sounds) "On" else "Off",
+            value = if (sounds) "Вкл" else "Выкл",
             accent = if (sounds) colors.signal else colors.dust,
             onClick = { sounds0?.tick(); onSetSounds(!sounds) },
             onCycle = { sounds0?.tick(); onSetSounds(!sounds) },
@@ -521,7 +521,7 @@ fun QuickSettingsSheet(
         SheetRow(
             icon = LoungeIcons.Move,
             title = "Уменьшение анимаций",
-            value = when (reducedMotion) { null -> "Как в системе"; true -> "On"; false -> "Off" },
+            value = when (reducedMotion) { null -> "Как в системе"; true -> "Вкл"; false -> "Выкл" },
             onClick = { sounds0?.tick(); onSetReducedMotion(reducedMotion.stepTri(1)) },
             onCycle = { by -> sounds0?.tick(); onSetReducedMotion(reducedMotion.stepTri(by)) },
         )
@@ -557,7 +557,7 @@ fun QuickSettingsSheet(
         SheetRow(
             icon = LoungeIcons.Phone,
             title = "Управление с телефона",
-            value = if (companionOn) "On" else "Off",
+            value = if (companionOn) "Вкл" else "Выкл",
             accent = if (companionOn) colors.signal else colors.dust,
             onClick = onCompanion,
             focusRequester = focusFor(Overlay.Companion),
@@ -567,7 +567,7 @@ fun QuickSettingsSheet(
             title = "Обновления",
             value = updateStatus,
             accent = when {
-                updateStatus == "Up to date" -> colors.signal
+                updateStatus == "Установлена актуальная версия" -> colors.signal
                 updateStatus == "Problem" -> colors.ember
                 updateStatus.endsWith(" available") || updateStatus.endsWith(" ready") -> colors.houselight
                 else -> colors.dust
@@ -731,7 +731,7 @@ internal fun AccessRow(access: Access, asker: AccessAsker, focusRequester: Focus
         title = access.title,
         subtitle = asker.note(access),
         subtitleLines = WHOLE,
-        value = if (on) "On" else "Не разрешено",
+        value = if (on) "Вкл" else "Не разрешено",
         accent = if (on) colors.signal else colors.dust,
         onClick = { asker.ask(access) },
         focusRequester = focusRequester,
@@ -788,7 +788,7 @@ fun CompanionSheet(core: CoreClient, enabled: Boolean, onSetEnabled: (Boolean) -
         icon = LoungeIcons.Phone,
         title = "Управление с телефона",
         subtitle = if (enabled) null else "Turn it on to pair a phone",
-        value = if (enabled) "On" else "Off",
+        value = if (enabled) "Вкл" else "Выкл",
         accent = if (running) colors.signal else colors.dust,
         onClick = { onSetEnabled(!enabled) },
         focusRequester = firstFocus,
@@ -899,7 +899,7 @@ fun ChannelsSheet(channels: List<ChannelInfo>?, onToggle: (ChannelInfo) -> Unit,
                     icon = LoungeIcons.Guide,
                     title = ch.name,
                     subtitle = if (ch.programmes == 1u) "1 programme" else "${ch.programmes} programmes",
-                    value = if (ch.enabled) "On" else "Off",
+                    value = if (ch.enabled) "Вкл" else "Выкл",
                     accent = if (ch.enabled) colors.signal else colors.dust,
                     onClick = { onToggle(ch) },
                     focusRequester = if (i == 0) firstFocus else null,
@@ -951,7 +951,7 @@ fun HomeRoleSheet(
         SheetRow(
             icon = LoungeIcons.Power,
             title = if (powerReady) "Do it now" else "Let Lounge do it",
-            value = if (powerReady) "Through Power Setup" else "Power Setup",
+            value = if (powerReady) "Through Power Setup" else "Расширенные системные права",
             accent = colors.houselight,
             onClick = if (powerReady) onDoItNow else onPowerSetup,
             focusRequester = firstFocus,
@@ -988,7 +988,7 @@ fun HomeRoleSheet(
     } else {
         SheetRow(icon = LoungeIcons.Refresh, title = "Check again", onClick = onRecheck, focusRequester = firstFocus)
         if (homesOff.isNotEmpty()) {
-            SheetRow(icon = LoungeIcons.Power, title = if (homesOff.size == 1) "Turn it back on" else "Turn them back on", value = "Power Setup", onClick = onPowerSetup)
+            SheetRow(icon = LoungeIcons.Power, title = if (homesOff.size == 1) "Turn it back on" else "Turn them back on", value = "Расширенные системные права", onClick = onPowerSetup)
         }
     }
     SheetFootnote(

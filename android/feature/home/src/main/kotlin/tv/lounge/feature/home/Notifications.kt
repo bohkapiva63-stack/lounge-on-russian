@@ -273,7 +273,7 @@ fun NotificationDetailSheet(
     }
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         if (n.opens) {
-            SheetRow(icon = SettingsGlyphs.Open, title = "Open", onClick = { sounds?.open(); onOpen(n) }, focusRequester = firstFocus)
+            SheetRow(icon = SettingsGlyphs.Open, title = "Открыть", onClick = { sounds?.open(); onOpen(n) }, focusRequester = firstFocus)
         }
         n.actions.forEach { action ->
             SheetRow(
@@ -291,7 +291,7 @@ fun NotificationDetailSheet(
         if (n.dismissible) {
             SheetRow(
                 icon = SettingsGlyphs.Dismiss,
-                title = "Dismiss",
+                title = "Закрыть",
                 onClick = { sounds?.tick(); onDismiss(n) },
                 focusRequester = firstFocus.takeIf { !n.opens && n.actions.isEmpty() },
             )
@@ -342,7 +342,7 @@ fun NotificationSettingsSheet(
             title = "Notifications",
             subtitle = if (allowed) null else "Needs notification access. OK asks for it.",
             subtitleLines = WHOLE,
-            value = if (!allowed) "Not allowed" else if (on) "On" else "Off",
+            value = if (!allowed) "Not allowed" else if (on) "Вкл" else "Выкл",
             accent = if (allowed && on) colors.signal else colors.dust,
             onClick = if (allowed) flip else onAllow,
             onCycle = if (allowed) { _ -> flip() } else null,
