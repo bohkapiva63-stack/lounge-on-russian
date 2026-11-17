@@ -504,7 +504,7 @@ private fun AppBannerContent(tile: Tile, filter: () -> androidx.compose.ui.graph
                 Icon(LoungeIcons.Apps, contentDescription = null, tint = if (tile.id == "control:allapps") colors.houselight else colors.dust, modifier = Modifier.size(48.dp))
             }
             Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                Text(tile.title, style = LoungeTheme.typography.title, color = colors.limelight, maxLines = 2, overflow = TextOverflow.Ellipsis)
+                Text(if (tile.id == "control:allapps") "Все приложения" else tile.title, style = LoungeTheme.typography.title, color = colors.limelight, maxLines = 2, overflow = TextOverflow.Ellipsis)
                 // Two tiles have a line under the name: All apps says how many it opens onto, a hidden app that it is hidden.
                 (tile.subtitle ?: "Hidden".takeIf { tile.hidden })?.let { Text(it, style = LoungeTheme.typography.caption, color = colors.dust, maxLines = 1) }
             }

@@ -380,7 +380,7 @@ fn build_row(state: &State, index: &BuildIndex, row_id: &str, now: i64, config: 
             }
             let mut tiles: Vec<Tile> = graph.your_apps().iter().map(|it| tile_for(graph, it, TileKind::AppBanner)).collect();
             tiles.push(all_apps_tile(total));
-            return Some(Row { id: row_id.to_string(), title: "Your apps".to_string(), kind: TileKind::AppBanner, size: RowSize::M, badge: None, tiles, note: None });
+            return Some(Row { id: row_id.to_string(), title: "Ваши приложения".to_string(), kind: TileKind::AppBanner, size: RowSize::M, badge: None, tiles, note: None });
         }
         "games" => ("Games", TileKind::Landscape, RowSize::M, Some(Badge::Controller), graph.games()),
         "live" => {
@@ -629,8 +629,8 @@ fn all_apps_tile(count: usize) -> Tile {
     Tile {
         id: "control:allapps".to_string(),
         kind: TileKind::AppBanner,
-        title: "All apps".to_string(),
-        subtitle: Some(counted(count, "app", "apps", "Nothing yet")),
+        title: "Все приложения".to_string(),
+        subtitle: Some(format!("{} {}", count, if count % 10 == 1 && count % 100 != 11 { "приложение" } else if count % 10 >= 2 && count % 10 <= 4 && (count % 100 < 10 || count % 100 >= 20) { "приложения" } else { "приложений" })),
         artwork_path: None,
         icon_path: None,
         light_argb: lounge_graph::color::HOUSELIGHT,
@@ -884,7 +884,7 @@ fn build_stage(state: &State, index: &BuildIndex, now: i64, hour_local: u32, con
             id: tile.id.clone(),
             kind: crate::SpotlightKind::App,
             category: "Your apps".to_string(),
-            title: "All apps".to_string(),
+            title: "Все приложения".to_string(),
             lines: vec![tile.subtitle.clone().unwrap_or_default(), "Hold OK on an app there to pin it".to_string()],
             progress: None,
             artwork_path: None,
