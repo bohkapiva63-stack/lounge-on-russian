@@ -191,7 +191,7 @@ fun NotificationsSheet(
         val (key, at) = focused ?: return@LaunchedEffect
         if (key !in keys && keys.isNotEmpty()) rowFocus[keys[at.coerceIn(0, keys.lastIndex)]]?.requestWhenReady()
     }
-    SheetHeading("Notifications")
+    SheetHeading("Уведомления")
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         list.forEachIndexed { i, n ->
             key(n.key) {
@@ -351,7 +351,7 @@ fun NotificationSettingsSheet(
         if (hidden.isNotEmpty()) {
             Spacer(Modifier.height(16.dp))
             Hairline(Modifier.fillMaxWidth())
-            SheetGroup("Hidden apps")
+            SheetGroup("Скрытые приложения")
             hidden.forEachIndexed { i, app ->
                 key(app.packageName) {
                     SheetRow(

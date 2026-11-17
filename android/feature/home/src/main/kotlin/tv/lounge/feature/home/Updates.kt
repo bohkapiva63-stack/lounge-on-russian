@@ -34,7 +34,7 @@ fun updateStatusWord(state: UpdateState, auto: Boolean): String = when (state) {
     is UpdateState.Ready, is UpdateState.NeedsConfirmation -> "${state.release?.version} ready"
     is UpdateState.Installing -> "Installing…"
     is UpdateState.Failed -> "Problem"
-    is UpdateState.UpToDate -> "Up to date"
+    is UpdateState.UpToDate -> "У вас новейшая версия"
     is UpdateState.Idle -> if (auto) "On" else "Manual"
 }
 
@@ -54,7 +54,7 @@ fun UpdatesSheet(updates: UpdateManager, firstFocus: FocusRequester) {
     val activity = context as? Activity
     fun act() { activity?.let { updates.interact(it, scope) } }
 
-    SheetHeading("Updates")
+    SheetHeading("Обновления")
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
         SheetRow(
             icon = LoungeIcons.Info,

@@ -20,8 +20,8 @@ val Prefs.Theme.title: String
         Prefs.Theme.Aquarium -> "Aquarium"
         Prefs.Theme.Absinthe -> "Absinthe"
         Prefs.Theme.Ultraviolet -> "Ultraviolet"
-        Prefs.Theme.Blackout -> "Blackout"
-        Prefs.Theme.HighContrast -> "High contrast"
+        Prefs.Theme.Blackout -> "Глубокий черный (Blackout)"
+        Prefs.Theme.HighContrast -> "Высокая контрастность"
     }
 
 val Prefs.Theme.tagline: String

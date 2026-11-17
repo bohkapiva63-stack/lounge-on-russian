@@ -413,13 +413,13 @@ fun QuickSettingsSheet(
     val returnTo = cameFrom?.takeIf { it in pages }
     fun focusFor(page: Overlay?) = firstFocus.takeIf { page == returnTo }
 
-    SheetHeading("Settings")
+    SheetHeading("Настройки")
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        SheetGroup("Home screen")
+        SheetGroup("Главный экран")
         SheetRow(
             icon = LoungeIcons.Rows,
-            title = "Rows",
-            subtitle = "Show, hide and move rows",
+            title = "Ряды",
+            subtitle = "Показ, скрытие и перемещение рядов",
             value = rowsSummary,
             onClick = onRows,
             focusRequester = focusFor(Overlay.Rows) ?: focusFor(null),
@@ -429,15 +429,15 @@ fun QuickSettingsSheet(
         SheetRow(
             icon = LoungeIcons.Apps,
             title = "Your apps",
-            subtitle = "Pinned apps, then recent ones",
-            value = if (recentApps == 0) "Pinned only" else "$recentApps recent",
+            subtitle = "Закрепленные приложения, затем недавние",
+            value = if (recentApps == 0) "Только закрепленные" else "$recentApps недавних",
             onClick = { sounds0?.tick(); onSetRecentApps(steps[(at + 1) % steps.size]) },
             onCycle = { by -> sounds0?.tick(); onSetRecentApps(steps[(at + by).mod(steps.size)]) },
         )
         SheetRow(
             icon = SettingsGlyphs.PhoneApps,
-            title = "Phone apps in All apps",
-            subtitle = "Apps made for phones, which may not work well with a remote",
+            title = "Телефонные приложения",
+            subtitle = "Приложения для телефонов (могут плохо управляться пультом)",
             value = if (showMobileApps) "On" else "Off",
             accent = if (showMobileApps) colors.signal else colors.dust,
             onClick = { sounds0?.tick(); onSetShowMobileApps(!showMobileApps) },
@@ -445,36 +445,36 @@ fun QuickSettingsSheet(
         )
         SheetRow(
             icon = LoungeIcons.Guide,
-            title = "Channels from apps",
-            subtitle = "Rows that apps on this TV publish",
-            value = if (enabledChannels == 0) "None" else "$enabledChannels on",
+            title = "Каналы приложений",
+            subtitle = "Каналы и ленты, публикуемые приложениями",
+            value = if (enabledChannels == 0) "Нет" else "Включено: $enabledChannels",
             onClick = onChannels,
             focusRequester = focusFor(Overlay.Channels),
         )
         SheetRow(
             icon = SettingsGlyphs.Plugin,
-            title = "Plugins",
-            subtitle = "Rows, channels and guide data from your services",
-            value = if (enabledPlugins == 0) "None on" else "$enabledPlugins on",
+            title = "Плагины",
+            subtitle = "Ряды, каналы и телепрограмма от ваших сервисов",
+            value = if (enabledPlugins == 0) "Выключены" else "Включено: $enabledPlugins",
             onClick = onPlugins,
             focusRequester = focusFor(Overlay.Plugins),
         )
         val notificationsAllowed = access.isOn(Access.NowPlaying)
         SheetRow(
             icon = LoungeIcons.Bell,
-            title = "Notifications",
-            subtitle = "What apps want to tell you",
-            value = if (!notificationsAllowed) "Not allowed" else if (notificationsOn) "On" else "Off",
+            title = "Уведомления",
+            subtitle = "Сообщения и уведомления от приложений",
+            value = if (!notificationsAllowed) "Не разрешено" else if (notificationsOn) "On" else "Off",
             accent = if (notificationsAllowed && notificationsOn) colors.signal else colors.dust,
             onClick = onNotifications,
             focusRequester = focusFor(Overlay.NotificationSettings),
         )
         Spacer(Modifier.height(16.dp))
         Hairline(Modifier.fillMaxWidth())
-        SheetGroup("Look and sound")
+        SheetGroup("Внешний вид и звук")
         SheetRow(
             icon = LoungeIcons.Theme,
-            title = "Theme",
+            title = "Тема оформления",
             value = theme.title,
             onClick = { sounds0?.tick(); onSetTheme(theme.step(1)) },
             onCycle = { by -> sounds0?.tick(); onSetTheme(theme.step(by)) },
@@ -483,7 +483,7 @@ fun QuickSettingsSheet(
         val sceneAt = scenes.indexOfFirst { it.first == backdrop }.coerceAtLeast(0)
         SheetRow(
             icon = SettingsGlyphs.Scene,
-            title = "Background",
+            title = "Фон",
             value = scenes[sceneAt].second,
             subtitle = if (!liveBackdrops && sceneAt > 0) "Still while Lite mode or Reduce motion is on" else scenes[sceneAt].third,
             onClick = { sounds0?.tick(); onSetBackdrop(scenes[(sceneAt + 1).mod(scenes.size)].first) },
@@ -491,7 +491,7 @@ fun QuickSettingsSheet(
         )
         SheetRow(
             icon = LoungeIcons.Frame,
-            title = "Screensaver",
+            title = "Заставка",
             value = saverName,
             accent = if (saverName == "Lounge") colors.signal else colors.dust,
             onClick = onAmbient,
@@ -499,7 +499,7 @@ fun QuickSettingsSheet(
         )
         SheetRow(
             icon = LoungeIcons.Volume,
-            title = "Sounds",
+            title = "Звуки",
             value = if (sounds) "On" else "Off",
             accent = if (sounds) colors.signal else colors.dust,
             onClick = { sounds0?.tick(); onSetSounds(!sounds) },
@@ -507,48 +507,48 @@ fun QuickSettingsSheet(
         )
         SheetRow(
             icon = SettingsGlyphs.Gauge,
-            title = "Lite mode",
+            title = "Легкий режим (Lite)",
             subtitle = when (lite) {
                 null -> if (liteNow) "On for this TV now: no moving light or live backgrounds" else "Off for this TV now; on, it stops the moving light and live backgrounds"
                 true -> "No moving light or live backgrounds, so the TV stays quick"
                 false -> "The moving light and live backgrounds stay on"
             },
             subtitleLines = WHOLE,
-            value = when (lite) { null -> "Automatic"; true -> "On"; false -> "Off" },
+            value = when (lite) { null -> "Автоматически"; true -> "Вкл"; false -> "Выкл" },
             onClick = { sounds0?.tick(); onSetLite(lite.stepTri(1)) },
             onCycle = { by -> sounds0?.tick(); onSetLite(lite.stepTri(by)) },
         )
         SheetRow(
             icon = LoungeIcons.Move,
-            title = "Reduce motion",
-            value = when (reducedMotion) { null -> "Follow system"; true -> "On"; false -> "Off" },
+            title = "Уменьшение анимаций",
+            value = when (reducedMotion) { null -> "Как в системе"; true -> "On"; false -> "Off" },
             onClick = { sounds0?.tick(); onSetReducedMotion(reducedMotion.stepTri(1)) },
             onCycle = { by -> sounds0?.tick(); onSetReducedMotion(reducedMotion.stepTri(by)) },
         )
         Spacer(Modifier.height(16.dp))
         Hairline(Modifier.fillMaxWidth())
-        SheetGroup("Access")
+        SheetGroup("Доступ и разрешения")
         Access.entries.forEach { a -> AccessRow(a, access) }
         Spacer(Modifier.height(16.dp))
         Hairline(Modifier.fillMaxWidth())
-        SheetGroup("This TV")
+        SheetGroup("Этот телевизор")
         SheetRow(
             icon = SettingsGlyphs.Home,
-            title = "Default home screen",
-            subtitle = "What the Home button opens",
-            value = if (isDefaultHome) "Lounge" else "Set up",
+            title = "Домашний экран по умолчанию",
+            subtitle = "Что открывает кнопка Home на пульте",
+            value = if (isDefaultHome) "Lounge" else "Настроить",
             accent = if (isDefaultHome) colors.signal else colors.dust,
             onClick = onRecheckHome,
             focusRequester = focusFor(Overlay.HomeRole),
         )
         SheetRow(
             icon = LoungeIcons.Power,
-            title = "Power Setup",
-            subtitle = "Lets Lounge do what an app can't on its own",
+            title = "Расширенные права (Power Setup)",
+            subtitle = "Позволяет Lounge управлять системными функциями ТВ",
             value = when (powerStatus) {
-                is tv.lounge.power.PowerStatus.Ready -> "Connected"
-                tv.lounge.power.PowerStatus.WaitingForApproval -> "Waiting for you"
-                else -> "Not connected"
+                is tv.lounge.power.PowerStatus.Ready -> "Подключено"
+                tv.lounge.power.PowerStatus.WaitingForApproval -> "Ожидает подтверждения"
+                else -> "Не подключено"
             },
             accent = if (powerStatus is tv.lounge.power.PowerStatus.Ready) colors.signal else colors.dust,
             onClick = onPowerSetup,
@@ -556,7 +556,7 @@ fun QuickSettingsSheet(
         )
         SheetRow(
             icon = LoungeIcons.Phone,
-            title = "Phone companion",
+            title = "Управление с телефона",
             value = if (companionOn) "On" else "Off",
             accent = if (companionOn) colors.signal else colors.dust,
             onClick = onCompanion,
@@ -564,7 +564,7 @@ fun QuickSettingsSheet(
         )
         SheetRow(
             icon = SettingsGlyphs.Download,
-            title = "Updates",
+            title = "Обновления",
             value = updateStatus,
             accent = when {
                 updateStatus == "Up to date" -> colors.signal
@@ -577,8 +577,8 @@ fun QuickSettingsSheet(
         )
         SheetRow(
             icon = LoungeIcons.Info,
-            title = "Diagnostics",
-            subtitle = "Numbers to include when you report a problem",
+            title = "Диагностика",
+            subtitle = "Сведения об устройстве и системе",
             value = if (showDiagnostics) "Hide" else "Show",
             onClick = { showDiagnostics = !showDiagnostics },
         )
@@ -594,9 +594,9 @@ fun QuickSettingsSheet(
                 }
             }
         }
-        SheetRow(icon = LoungeIcons.Refresh, title = "Run the setup steps again", onClick = onSetupAgain, focusRequester = focusFor(Overlay.Onboarding))
+        SheetRow(icon = LoungeIcons.Refresh, title = "Пройти первоначальную настройку заново", onClick = onSetupAgain, focusRequester = focusFor(Overlay.Onboarding))
     }
-    SheetFootnote("Left and Right change a value. Back closes.")
+    SheetFootnote("Влево / Вправо — изменить. Назад — закрыть.")
 }
 
 /** One of Lounge's optional accesses, as Settings and the setup steps name it. */
@@ -731,7 +731,7 @@ internal fun AccessRow(access: Access, asker: AccessAsker, focusRequester: Focus
         title = access.title,
         subtitle = asker.note(access),
         subtitleLines = WHOLE,
-        value = if (on) "On" else "Not allowed",
+        value = if (on) "On" else "Не разрешено",
         accent = if (on) colors.signal else colors.dust,
         onClick = { asker.ask(access) },
         focusRequester = focusRequester,
@@ -786,7 +786,7 @@ fun CompanionSheet(core: CoreClient, enabled: Boolean, onSetEnabled: (Boolean) -
     val running = enabled && status?.running == true
     SheetRow(
         icon = LoungeIcons.Phone,
-        title = "Phone companion",
+        title = "Управление с телефона",
         subtitle = if (enabled) null else "Turn it on to pair a phone",
         value = if (enabled) "On" else "Off",
         accent = if (running) colors.signal else colors.dust,
@@ -837,7 +837,7 @@ fun CompanionSheet(core: CoreClient, enabled: Boolean, onSetEnabled: (Boolean) -
                     else -> null
                 },
                 subtitleLines = WHOLE,
-                value = if (forgetting) null else if (s.paired == 0u) "None" else s.paired.toString(),
+                value = if (forgetting) null else if (s.paired == 0u) "Нет" else s.paired.toString(),
                 accent = if (forgetFailed) colors.ember else colors.dust,
                 modifier = Modifier.onFocusChanged { if (!it.isFocused) forgetting = false },
                 onClick = {

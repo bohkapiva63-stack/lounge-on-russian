@@ -176,7 +176,7 @@ fun RowsSheet(
 
     Spacer(Modifier.height(24.dp))
     Hairline(Modifier.fillMaxWidth())
-    SheetGroup("Hidden from every row")
+    SheetGroup("Скрытые приложения")
     when {
         hidden == null -> Unit
         hidden.isEmpty() -> Text("Nothing is hidden. Hold OK on any tile and choose Hide.", style = LoungeTheme.typography.meta, color = colors.dust)
@@ -207,7 +207,7 @@ fun RowsSheet(
         }
     }
     Spacer(Modifier.height(24.dp))
-    SheetGroup("Continue watching comes from")
+    SheetGroup("Источники Продолжить просмотр")
     when {
         sources == null -> Unit
         sources.isEmpty() -> Text("Nothing to continue yet. Apps and plugins are listed here once they bring something.", style = LoungeTheme.typography.meta, color = colors.dust)
