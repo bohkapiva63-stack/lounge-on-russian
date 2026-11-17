@@ -601,9 +601,9 @@ fun QuickSettingsSheet(
 
 /** One of Lounge's optional accesses, as Settings and the setup steps name it. */
 internal enum class Access(val key: String, val title: String, val what: String) {
-    TvListings("tv_listings", "TV listings", "Continue watching, channels and the TV guide"),
-    NowPlaying("notifications", "Notification access", "What is playing, and what apps want to tell you"),
-    Usage("usage", "Usage access", "Lets Your apps follow what you open"),
+    TvListings("tv_listings", "Телепередачи", "Продолжить просмотр, каналы и телегид"),
+    NowPlaying("notifications", "Доступ к уведомлениям", "Текущее воспроизведение и уведомления приложений"),
+    Usage("usage", "Доступ к истории использования", "Позволяет упорядочивать Ваши приложения по открытию"),
 }
 
 private fun Access.granted(context: android.content.Context): Boolean = when (this) {

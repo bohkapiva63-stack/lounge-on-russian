@@ -345,7 +345,7 @@ internal fun matchScore(title: String, subtitle: String?, tokens: List<String>):
 private fun continueRow(snapshot: HomeSnapshot, row: CoreRow?): CoreRow? {
     val tiles = (snapshot.stage.strip.filter { it.provider != null } + row?.tiles.orEmpty().filter { !it.id.startsWith("notice:") }).distinctBy { it.id }
     if (tiles.isEmpty()) return null
-    return CoreRow(id = "continue", title = "Continue watching", kind = TileKind.LANDSCAPE, size = RowSize.M, badge = null, tiles = tiles, note = null)
+    return CoreRow(id = "continue", title = "Продолжить просмотр", kind = TileKind.LANDSCAPE, size = RowSize.M, badge = null, tiles = tiles, note = null)
 }
 
 /** Before anything is typed: the head of Continue watching, then Your apps, as one row each. */
@@ -355,7 +355,7 @@ private fun recentlyOpened(snapshot: HomeSnapshot): List<CoreRow> {
         out += it.copy(id = "recent:continue", tiles = it.tiles.take(6))
     }
     snapshot.rows.firstOrNull { it.id == "apps" && it.tiles.any { t -> !t.id.startsWith("control:") } }?.let {
-        out += it.copy(id = "recent:apps", title = "Your apps", tiles = it.tiles.filter { t -> !t.id.startsWith("control:") }.take(6))
+        out += it.copy(id = "recent:apps", title = "Ваши приложения", tiles = it.tiles.filter { t -> !t.id.startsWith("control:") }.take(6))
     }
     return out
 }

@@ -205,7 +205,7 @@ fun AllAppsScreen(
                 }
                 .focusGroup()
                 .focusProperties { if (leaving) canFocus = false }
-                .semantics { paneTitle = "All apps" },
+                .semantics { paneTitle = "Все приложения" },
         ) {
             // The grid comes first so the heading paints over it: scrolled rows pass under a fade
             // rather than through the words. The keyboard covers the grid's lower rows rather than
@@ -303,7 +303,7 @@ fun AllAppsScreen(
                                     kind = TileKind.APP_BANNER,
                                     size = size,
                                     lights = lights,
-                                    rowName = "All apps",
+                                    rowName = "Все приложения",
                                     focusRequester = requester(index),
                                     onFocused = { focused, _ ->
                                         if (focused) {
@@ -343,11 +343,11 @@ fun AllAppsScreen(
                         verticalAlignment = Alignment.Top,
                     ) {
                         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                            Text("All apps", style = LoungeTheme.typography.displayL, color = colors.limelight, modifier = Modifier.semantics { heading() })
+                            Text("Все приложения", style = LoungeTheme.typography.displayL, color = colors.limelight, modifier = Modifier.semantics { heading() })
                             Text(
                                 modifier = Modifier.semantics { liveRegion = LiveRegionMode.Polite },
                                 text = when {
-                                    apps.isEmpty() -> "Nothing here yet."
+                                    apps.isEmpty() -> "Здесь пока ничего нет."
                                     query.isNotEmpty() && shown.isEmpty() -> "Nothing matches “$query”."
                                     query.isNotEmpty() -> "${shown.size} of ${apps.size} match “$query”."
                                     else -> "${apps.size} ${if (apps.size == 1) "app" else "apps"}, ${sortLine(sortNow)}."
@@ -428,7 +428,7 @@ private fun SearchField(field: TextFieldValue, onChange: (TextFieldValue) -> Uni
         Row(Modifier.height(48.dp).padding(horizontal = 6.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
             Icon(LoungeIcons.Search, contentDescription = null, tint = if (focused) colors.houselight else colors.dust, modifier = Modifier.size(24.dp))
             Box(Modifier.weight(1f)) {
-                if (field.text.isEmpty()) Text("Find an app", style = LoungeTheme.typography.title, color = colors.dust, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                if (field.text.isEmpty()) Text("Найти приложение", style = LoungeTheme.typography.title, color = colors.dust, maxLines = 1, overflow = TextOverflow.Ellipsis)
                 BasicTextField(
                     value = field,
                     onValueChange = onChange,
@@ -441,7 +441,7 @@ private fun SearchField(field: TextFieldValue, onChange: (TextFieldValue) -> Uni
                         .fillMaxWidth()
                         .focusRequester(focusRequester)
                         .onFocusChanged { focused = it.isFocused; onFocused(it.isFocused) }
-                        .semantics { contentDescription = "Find an app" },
+                        .semantics { contentDescription = "Найти приложение" },
                 )
             }
         }
@@ -457,15 +457,15 @@ private val ALPHABET: List<Char> = listOf('#') + ('A'..'Z')
 private val SORTS = listOf(Prefs.SORT_AZ, Prefs.SORT_OPENED, Prefs.SORT_INSTALLED)
 
 private fun sortLabel(sort: String) = when (sort) {
-    Prefs.SORT_OPENED -> "Recently opened"
-    Prefs.SORT_INSTALLED -> "Recently installed"
-    else -> "A to Z"
+    Prefs.SORT_OPENED -> "Недавно открытые"
+    Prefs.SORT_INSTALLED -> "Недавно установленные"
+    else -> "От А до Я"
 }
 
 private fun sortLine(sort: String) = when (sort) {
     Prefs.SORT_OPENED -> "most recently opened first"
     Prefs.SORT_INSTALLED -> "newest first"
-    else -> "A to Z"
+    else -> "От А до Я"
 }
 
 private val collator: java.text.Collator = java.text.Collator.getInstance().apply { strength = java.text.Collator.PRIMARY }

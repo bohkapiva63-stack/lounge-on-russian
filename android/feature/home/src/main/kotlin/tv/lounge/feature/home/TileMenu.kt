@@ -152,7 +152,7 @@ fun TileMenuPopover(
     LaunchedEffect(Unit) { firstFocus.requestWhenReady() }
 }
 
-/** Wide enough for the longest item, "Pin to the front of Your apps", on one line. */
+/** Wide enough for the longest item, "Закрепить в начале Ваших приложений", on one line. */
 private val MenuWidth = 480.dp
 
 /** Whether holding OK on [tile] opens a menu: a tile that only opens a screen or the TV's own controls has nothing to pin or hide. */
@@ -160,20 +160,20 @@ fun hasMenu(tile: Tile): Boolean = !tile.id.startsWith("control:") && !tile.id.s
 
 /** What each pin does, in the menu and on the phone, so the word "pin" never stands alone. */
 object PinWords {
-    const val PIN_APP = "Pin to the front of Your apps"
-    const val PIN_APP_DETAIL = "Stays put ahead of recent apps"
-    const val UNPIN_APP = "Unpin from Your apps"
-    const val UNPIN_APP_DETAIL = "Follows what you open again"
-    const val PIN_STAGE = "Pin to the Stage"
-    const val PIN_STAGE_DETAIL = "Stays in the big pictures up top"
-    const val UNPIN_STAGE = "Unpin from the Stage"
-    const val UNPIN_STAGE_DETAIL = "What you watch takes its place"
-    const val HIDE_DETAIL = "Off every row until you show it"
-    const val SHOW = "Show"
-    const val SHOW_DETAIL = "Back on every row it belongs in"
-    const val HIDE_ALL_FROM_DETAIL = "Off Continue watching until you show it"
-    const val HIDE_ROW = "Hide this row"
-    const val HIDE_ROW_DETAIL = "Settings, Rows brings it back"
+    const val PIN_APP = "Закрепить в начале Ваших приложений"
+    const val PIN_APP_DETAIL = "Всегда в начале перед недавними"
+    const val UNPIN_APP = "Открепить от Ваших приложений"
+    const val UNPIN_APP_DETAIL = "Сортируется по использованию"
+    const val PIN_STAGE = "Закрепить на витрине"
+    const val PIN_STAGE_DETAIL = "Остается в верхнем баннере"
+    const val UNPIN_STAGE = "Открепить от витрины"
+    const val UNPIN_STAGE_DETAIL = "Заменится текущим просмотром"
+    const val HIDE_DETAIL = "Скрыть со всех рядов"
+    const val SHOW = "Показать"
+    const val SHOW_DETAIL = "Вернуть во все соответствующие ряды"
+    const val HIDE_ALL_FROM_DETAIL = "Убрать из Продолжить просмотр"
+    const val HIDE_ROW = "Скрыть этот ряд"
+    const val HIDE_ROW_DETAIL = "Настройки -> Ряды вернут его обратно"
 }
 
 /**

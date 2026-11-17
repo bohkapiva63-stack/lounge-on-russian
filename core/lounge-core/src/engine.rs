@@ -70,7 +70,7 @@ pub(crate) fn plugin_notice(plugin: &str) -> String {
 /// The core rows and their titles, in default order. Every app is reachable from the All apps
 /// screen, which Your apps ends with, so there is no row of them all.
 pub(crate) const CORE_ROWS: [(&str, &str); 5] = [
-    ("continue", "Continue watching"),
+    ("continue", "Продолжить просмотр"),
     ("apps", "Your apps"),
     ("games", "Games"),
     ("live", "Live now"),
@@ -358,7 +358,7 @@ fn build_row(state: &State, index: &BuildIndex, row_id: &str, now: i64, config: 
                 return if !state.permissions.tv_listings && !graph.layout.dismissed_notices.contains(NOTICE_TV_LISTINGS) {
                     Some(notice_row(
                         NOTICE_TV_LISTINGS,
-                        "Continue watching",
+                        "Продолжить просмотр",
                         "Turn on TV listings",
                         "See what you were watching",
                         "permission:tv_listings",
@@ -369,7 +369,7 @@ fn build_row(state: &State, index: &BuildIndex, row_id: &str, now: i64, config: 
             }
             // The Stage strip already shows the first of them, so the row starts after it.
             let rest = items.into_iter().filter(|it| !index.on_stage(&it.id)).take(ROW_TILES).collect();
-            ("Continue watching", TileKind::Landscape, RowSize::M, None, rest)
+            ("Продолжить просмотр", TileKind::Landscape, RowSize::M, None, rest)
         }
         "apps" => {
             // The row ends with the way to every app, and stands even with no pins and no recent
@@ -936,7 +936,7 @@ fn build_stage(state: &State, index: &BuildIndex, now: i64, hour_local: u32, con
 fn spotlight_for(graph: &Graph, index: &BuildIndex, it: &Item, now: i64, hour_local: u32) -> StageSpotlight {
     let airing = index.airing(it);
     let (category, primary_label) = match it.kind {
-        ItemKind::Resume | ItemKind::MediaSession => ("Continue watching", "Continue"),
+        ItemKind::Resume | ItemKind::MediaSession => ("Продолжить просмотр", "Продолжить"),
         ItemKind::Channel => ("Live now", "Watch"),
         ItemKind::Game => ("Games", "Play"),
         ItemKind::Wallpaper => ("Pictures", "Open"),
